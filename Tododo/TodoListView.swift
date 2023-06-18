@@ -10,15 +10,42 @@ import RealmSwift
 
 struct TodoListView: View {
     
+    @ObservedResults(Todo.self) var todos
+    @State private var name = ""
+    @FocusState private var focus: Bool?
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+       
+        NavigationView {
+            VStack {
+                
+                HStack {
+                    TextField("New Todo", text: $name)
+                        .textFieldStyle(.roundedBorder)
+                        .focused($focus, equals: true)
+                    Spacer()
+                    Button {
+                        let newTodo = Todo(name: name)
+                        $todos.append(newTodo)
+                        name = ""
+                        focus = nil
+                    } label: {
+                        Image(systemName: "plus.circle.fill")
+                    }
+                    .disabled(name.isEmpty)
+                }
+                .padding()
+                
+                List {
+                    ForEach(todos) { todo in
+                        Text(todo.name)
+                    }
+                    .listRowSeparator(.hidden)
+                }
+                .listStyle(.plain)
+            }
+            .navigationTitle("Realm Todos")
         }
-        .padding()
-        
         
     }
 }
