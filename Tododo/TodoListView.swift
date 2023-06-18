@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import RealmSwift
 
-struct ContentView: View {
+struct TodoListView: View {
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -16,11 +18,13 @@ struct ContentView: View {
             Text("Hello, world!")
         }
         .padding()
+        
+        
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        TodoListView()
     }
 }
