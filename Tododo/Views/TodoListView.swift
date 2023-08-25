@@ -38,8 +38,9 @@ struct TodoListView: View {
                 
                 List {
                     ForEach(todos) { todo in
-                        Text(todo.name)
+                        TodoListRow(todo: todo)
                     }
+                    .onDelete(perform: $todos.remove)
                     .listRowSeparator(.hidden)
                 }
                 .listStyle(.plain)
